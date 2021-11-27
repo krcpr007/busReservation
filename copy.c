@@ -4,67 +4,26 @@
 #include <string.h>
 void cancle(int ReservationNo);
 void busLists();
-   char passName[32][100]={'\0'};
+char passName[32][100] = {'\0'};
 
-struct passenger
-{
-  struct passenger *prev;
-  struct passengger *next;
-  // char passName[10];
-  int seat;
-  int reservationNo;
-} * passenger;
-
-char busSeats[33][10] = {"Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty "};
-
+// char busSeats[33][10] = {"Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty ", "Empty "};
+int busSeat[33] = {0};
 char busName[10][130] = {"Delhi to Gurgaun", "Mumbai to Patna", "Surat to Delhi", "Madhubani to Chennai", "Begusarai to Patna"};
-char pName[20];
-char pswrd[10];
-// void insertUser()
-// {
-//    struct passenger *temp;
-//    int item;
-//    temp = (struct passenger *) malloc(sizeof(struct passenger));
-//    if(temp == NULL)
-//    {
-//        printf("\nOVERFLOW");
-//    }
-//    else
-//    {
-//        printf("\nPASSENGER NAME: ");
-//        gets(temp->passName) ;
 
-//        if(passenger == NULL)
-//        {
-//            temp->next = NULL;
-//            temp->prev = NULL;
-//            passenger = temp;
-//        }
-//        else
-//        {
-//           temp = passenger;
-//           while(temp->next!=NULL)
-//           {
-//               temp = temp->next;
-//           }
-//           temp->next = temp;
-//           temp ->prev=temp;
-//           temp->next = NULL;
-//           }
-//        }
-//      printf("\nnode inserted\n");
-//      DisplaySeat();
-//     }
 void DisplaySeat()
 {
   for (int i = 1; i <= 32; i++)
   {
     printf("%d .", i);
-    for (int j = 0; j < 10; j++)
     {
-      printf("%c", busSeats[i][j]);
+      if (busSeat[i] == 0)
+        printf("EMPTY");
+      else
+        printf("BOOKED");
     }
     printf("     ");
+    if (i % 4 == 0)
+      printf("\n");
   }
 }
 void login()
@@ -105,27 +64,17 @@ void ticketBooking()
   printf("\n\nNO. OF SEATS YOU NEED TO BOOK : ");
   scanf("%d", &seats);
   int seatNumber;
-  // for (int i = 1; i <= seats; i++)
-  // { 
-  //   printf("\n=========== Enter the details for ticket no %d ====================",i);
-  //   // printf("\n\n============================================\n\n");
-  //   printf("   ENTER THE SEAT NUMBER: ");
-  //   scanf("%d", &seatNumber);
-  //   printf("\n   ENTER THE PERSON NAME: ");
-  //   scanf("%s",passName);
-  //   printf("\n==========================================\n");
-  // }
-    for(int i=1; i<=seats; i++)//for entering the person name and seat number in the file
-{
-      printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd Enter the details for ticket no %d \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n",i);
-      printf("   ENTER THE SEAT NUMBER: ");
-      scanf("%d",&seatNumber);
-      printf("\n   ENTER THE PERSON NAME: ");
-      scanf("%s",passName);
-      printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
-      printf("\n");
-
-}
+  for (int i = 1; i <= seats; i++) // for entering the person name and seat number in the file
+  {
+    printf("\n===================================================================");
+    printf("\n  ENTER THE SEAT NUMBER: ");
+    scanf("%d", &seatNumber);
+    busSeat[seatNumber] = 1;
+    printf("\n   ENTER THE PERSON NAME: ");
+    scanf("%s", passName);
+    printf("\n===================================================================");
+    printf("\n");
+  }
 }
 void busLists()
 {
@@ -139,8 +88,9 @@ void busLists()
   printf("   [5]  =>  %s\n\n", busName[4]);
   printf("\n====================================\n");
   // busLists();
-  printf("\nCHOOSE YOUR BUS : ");
+  printf("\nCHOOSE YOUR BUS OR PRESS Q TO MAIN MENU : ");
   scanf("%d", &choice);
+
   DisplaySeat();
   printf("\n\nNO. OF SEATS YOU NEED TO BOOK : ");
   scanf("%d", &seats);
@@ -151,11 +101,11 @@ void busLists()
     printf("\n\n============================================\n\n");
     printf("   ENTER THE SEAT NUMBER: ");
     scanf("%d", &seatNumber);
+    busSeat[seatNumber] = 1;
     printf("\n   ENTER THE PERSON NAME: ");
-    gets(passName);
-    printf("\n==========================================\n\n");
+    scanf("%s",passName);
+    printf("\n==========================================\n\n"); 
   }
-  
 }
 void cancle(int ReservationNo)
 {
@@ -186,17 +136,16 @@ aa:
 
 int main()
 {
-  // login();
+  login();
   int ReservationNo;
   int num, i;
   do
   {
-    // system("cls");
     printf("\n\n========================================\n\n");
     printf("\t\tBUS RESERVATION\t\t");
     printf("\n\n========================================\n");
     printf("\n====================  MAIN MENU  =====================\n\n");
-    printf("   [1] View Bus List\n\n");
+    printf("   [1] View Bus List And Book Tikects\n\n");
     printf("   [2] Book Tickets\n\n");
     printf("   [3] Cancel Booking\n\n");
     printf("   [4] Bus Status Board\n\n");
