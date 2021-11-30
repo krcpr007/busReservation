@@ -3,10 +3,10 @@
 #include <conio.h>
 #include <string.h>
 #include <time.h>
-void status();            // shows bus and seats status
+void status();                 // shows bus and seats status
 void busLists(int x);          // shows buslist and do booking seat
 void DisplaySeat(int bus[33]); /// Display the seats of buses
-void cancel(int x);
+void cancel(int x);            // cancel booked tickets
 int busSeat[33][10] = {0};
 void redColor() /// Print the message in redcolor
 {
@@ -20,15 +20,25 @@ void DisplaySeat(int bus[33])
 {
     for (int i = 1; i <= 32; i++)
     {
-        printf("%d .", i);
+        redColor();
+        if (i < 10 && i > 0)
+        {
+            printf("0%d .", i);
+        }
+        else
+        {
+            printf("%d .", i);
+        }
+
+        resetColor();
         {
             if (bus[i] == 0)
-                printf("Empty");
+                printf("EMPTY"); 
             else
-                printf("Booked");
+                printf("BOOKED"); //reserv
         }
-        printf("     ");
-        if (i % 6 == 0)
+        printf("         ");
+        if (i % 4 == 0)
             printf("\n");
     }
 }
@@ -94,7 +104,7 @@ void status()
 busInput:
     printf("\n\nENTER YOUR BUS NUMBER : ");
     scanf("%d", &busNum);
-    if (busNum == 0 || busNum>= 11)
+    if (busNum == 0 || busNum >= 11)
     {
         printf("\nPLEASE ENTER CORRECT BUS NUMBER...\n");
         goto busInput;
@@ -249,10 +259,6 @@ int main()
             break;
         case 4:
             status();
-            break;
-        default:
-            printf("\n \tENTER THE CORRECT OPTATION...\n \tPRESS ANY KEY TO CONTINUE...");
-            getch();
             break;
         }
     } while (num != 5);
