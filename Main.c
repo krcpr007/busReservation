@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <string.h>
 #include <time.h>
-void status(int x);            // shows bus and seats status
+void status();            // shows bus and seats status
 void busLists(int x);          // shows buslist and do booking seat
 void DisplaySeat(int bus[33]); /// Display the seats of buses
 void cancel(int x);
@@ -39,9 +39,11 @@ void login()
     char matchPass[10];
     char matchUser[10];
     int value;
+    redColor();
     printf("=========================================================");
     printf("\n\t\tWelcome to Online Bus Reservation");
     printf("\n========================================================");
+    resetColor();
 login:
 {
     printf("\n\nUserName: ");
@@ -54,8 +56,9 @@ login:
     value = strcmp(passWord, matchPass); /// string compare is function defined in headerfile i.e string.h
     if (value != 0)
     {
-
+        redColor();
         printf("\nINVALID DETAILS TRY AGAIN...\n");
+        resetColor();
         goto login;
     }
     else
@@ -68,38 +71,15 @@ void ticketBooking(int randomNum)
     int choice, seats;
     busLists(randomNum);
 }
-void status(int randomNum)
+void status()
 {
-    int matchUser;
     int busNum;
-    printf("\nENTER YOUR RESERVATION NUMBER :  ");
-    scanf("%d", &matchUser);
-    if (matchUser == randomNum)
-    {
-      BUS:  printf("\n\nENTER YOUR BUS NUMBER : ");
-        scanf("%d", &busNum);
-        if (busNum==0)
-        {
-            printf("\nPLEASE ENTER CORRECT BUS NUMBER...\n");
-            goto BUS;
-        }
-        
-        DisplaySeat(busSeat[busNum]);
-    }
-    else
-    {
-        redColor();
-        printf("\nNOT MATCHED!!\n\n");
-        printf("\nPLEASE ENTER YOUR CORRECT RESERVATION NUMBER!!\n");
-        resetColor();
-    }
-}
-void busLists(int randomNum)
-{
-    int cost = 250;
-    int choice, seats;
+
+    printf("\n\n");
     printf("-----------------------------------------------------------------------------------------");
+    redColor();
     printf("\nBus.No\tName\t\t\tDestinations  \t\tCharges  \t\tTime\n");
+    resetColor();
     printf("-----------------------------------------------------------------------------------------");
     printf("\n1\tGangaTravels         \tDharan to Kavre       \tRs.700   \t\t07:00   AM");
     printf("\n2\tPhaphara Travels     \tKavre To Dharan       \tRs.750    \t\t01:30  PM");
@@ -111,7 +91,36 @@ void busLists(int randomNum)
     printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.350    \t\t04:00  PM");
     printf("\n9\tShatabdi Travels     \tKathmandu To Pokhara  \tRs.600    \t\t05:35  PM");
     printf("\n10\tRajjo Travels       \tBegusarai To Patna    \tRs.700    \t\t08:15  AM");
-    // busLists();
+busInput:
+    printf("\n\nENTER YOUR BUS NUMBER : ");
+    scanf("%d", &busNum);
+    if (busNum == 0 || busNum>= 11)
+    {
+        printf("\nPLEASE ENTER CORRECT BUS NUMBER...\n");
+        goto busInput;
+    }
+    printf("\n");
+    DisplaySeat(busSeat[busNum]);
+}
+void busLists(int randomNum)
+{
+    int cost = 250;
+    int choice, seats;
+    redColor();
+    printf("-----------------------------------------------------------------------------------------");
+    printf("\nBus.No\tName\t\t\tDestinations  \t\tCharges  \t\tTime\n");
+    printf("-----------------------------------------------------------------------------------------");
+    resetColor();
+    printf("\n1\tGangaTravels         \tDharan to Kavre       \tRs.700   \t\t07:00   AM");
+    printf("\n2\tPhaphara Travels     \tKavre To Dharan       \tRs.750    \t\t01:30  PM");
+    printf("\n3\tShiv Ganga Travels   \tAllahabad To Gorakhpur\tRs.400    \t\t03:50  PM");
+    printf("\n4\tSuper Deluxe         \tPokhara To Benigha    \tRs.350    \t\t01:00  AM");
+    printf("\n5\tSai Baba Travels     \tMaitidevi To Janakpur \tRs.400    \t\t12:05  AM");
+    printf("\n6\tShine On Travels     \tMadhubani to Patna    \tRs.400    \t\t09:30  AM");
+    printf("\n7\tMayur Travels        \tPatna To Gaya         \tRs.350    \t\t11:00  PM");
+    printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.350    \t\t04:00  PM");
+    printf("\n9\tShatabdi Travels     \tKathmandu To Pokhara  \tRs.600    \t\t05:35  PM");
+    printf("\n10\tRajjo Travels       \tBegusarai To Patna    \tRs.700    \t\t08:15  AM");
     printf("\nCHOOSE YOUR BUS  : ");
     scanf("%d", &choice);
     printf("\n");
@@ -135,8 +144,9 @@ void busLists(int randomNum)
         scanf("%s", passName);
         printf("\n=============================================\n\n");
     }
+    printf("\nYOUR RESERVATION NUMBER IS : ");
     redColor();
-    printf("\nYOUR RESERVATION NUMBER IS  %d\n", randomNum);
+    printf("%d\n", randomNum);
     printf("\nPLEASE NOTE DOWN YOUR RESERVATION NUMBER FOR CANCEL BOOKING TICKETS\n");
     resetColor();
     getch();
@@ -160,19 +170,21 @@ aa:
         if (c == 'y' || c == 'Y')
         {
             printf("\n\n============================================\n\n");
-          bus:  printf("   ENTER THE BUS NUMBER: ");
+        bus:
+            printf("   ENTER THE BUS NUMBER: ");
             scanf("%d", &choice);
             if (choice == 0 || choice >= 10)
-            {   printf("\n\tENTER CORRECT BUS NUMBER PLEASE...\n");
+            {
+                printf("\n\tENTER CORRECT BUS NUMBER PLEASE...\n");
                 goto bus;
             }
             printf("\nHOW MANY SEATS DO WANT TO CANCEL : ");
             scanf("%d", &seatCancel);
-            if (seatCancel == 0 )
+            if (seatCancel == 0)
             {
-                return ;
+                return;
             }
-            
+
             for (int i = 0; i < seatCancel; i++)
             {
                 printf("   \nENTER THE SEAT NUMBER: ");
@@ -209,14 +221,18 @@ int main()
     do
     {
         printf("\n\n=====================================================\n\n");
+        redColor();
         printf("\t\tBUS RESERVATION\t\t");
+        resetColor();
         printf("\n\n======================================================\n");
         printf("\n====================  MAIN MENU  =====================\n\n");
+        redColor();
         printf("   [1] View Bus List And Book Tikects\n\n");
         printf("   [2] Book Tickets\n\n");
         printf("   [3] Cancel Booking\n\n");
         printf("   [4] Bus Seats Status Board\n\n");
         printf("   [5] Exit\n");
+        resetColor();
         printf("\n=====================================================\n");
         printf("   ENTER YOUR CHOICE: ");
         scanf("%d", &num);
@@ -232,13 +248,12 @@ int main()
             cancel(randomNum);
             break;
         case 4:
-            status(randomNum);
+            status();
             break;
-        default : 
-         printf("\n \tENTER THE CORRECT OPTATION...\n \tPRESS ANY KEY TO CONTINUE...");
-         getch();
-         break;
-
+        default:
+            printf("\n \tENTER THE CORRECT OPTATION...\n \tPRESS ANY KEY TO CONTINUE...");
+            getch();
+            break;
         }
     } while (num != 5);
     printf("\n\n============================================\n\n");
