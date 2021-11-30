@@ -8,11 +8,11 @@ void busLists(int x);          // shows buslist and do booking seat
 void DisplaySeat(int bus[33]); /// Display the seats of buses
 void cancel(int x);
 int busSeat[33][10] = {0};
-void redColor()
+void redColor()/// Print the message in redcolor 
 {
     printf("\033[1;31m");
 }
-void resetColor()
+void resetColor()///reset the old color of console
 {
     printf("\033[0m");
 }
@@ -72,7 +72,7 @@ void ticketBooking(int randomNum)
 void status(int randomNum)
 {
 
-    printf("Enter your Bus Number ");
+    // printf("Enter your Bus Number "); this function is note completed yet !! 
 }
 void busLists(int randomNum)
 {
@@ -110,7 +110,6 @@ void busLists(int randomNum)
         scanf("%s", passName);
         printf("\n=============================================\n\n");
     }
-    // printf("\nYOUR COST OF BOOKING %d SEAT IS %dRs.\n", seats, cost * seats);
     redColor();
     printf("\nYOUR RESERVATION NUMBER IS  %d\n", randomNum);
     printf("\nPLEASE NOTE DOWN YOUR RESERVATION NUMBER FOR CANCEL BOOKING TICKETS\n");
