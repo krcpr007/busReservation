@@ -3,9 +3,10 @@
 #include <conio.h>
 #include <string.h>
 #include <time.h>
-void status();
-void busLists();
-
+void status(int x); // shows bus and seats status 
+void busLists(int x); //shows buslist and do booking seat
+void DisplaySeat(int bus[33]); ///Display the seats of buses 
+void cancel(int x); 
 int busSeat[33][10] = {0};
 void redColor()
 {
@@ -64,7 +65,7 @@ void ticketBooking(int randomNum)
   int choice, seats;
   busLists(randomNum);
 }
-void status()
+void status(int randomNum)
 {
 
   printf("Enter your Bus Number ");
@@ -143,7 +144,7 @@ aa:
 
         busSeat[choice][seatNumber] = 0;
       }
-      printf("\n\nYOUR RESERVATION HAS BEEN CANCEL\n");
+      printf("\n\nYOUR RESERVATION HAS BEEN CANCEL !!\n\n");
       getch();
       DisplaySeat(busSeat[choice]); 
     }
@@ -195,7 +196,7 @@ main:
       cancel(randomNum);
       break;
     case 4:
-      status();
+      status(randomNum);
       break;
     }
   } while (num != 5);
