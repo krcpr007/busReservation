@@ -8,11 +8,11 @@ void busLists(int x);          // shows buslist and do booking seat
 void DisplaySeat(int bus[33]); /// Display the seats of buses
 void cancel(int x);
 int busSeat[33][10] = {0};
-void redColor()/// Print the message in redcolor 
+void redColor() /// Print the message in redcolor
 {
     printf("\033[1;31m");
 }
-void resetColor()///reset the old color of console
+void resetColor() /// reset the old color of console
 {
     printf("\033[0m");
 }
@@ -39,10 +39,9 @@ void login()
     char matchPass[10];
     char matchUser[10];
     int value;
-
     printf("=========================================================");
-    printf("\n\t\t\tWelcome to Online Bus Reservation");
-    printf("\n=======================================================");
+    printf("\n\t\tWelcome to Online Bus Reservation");
+    printf("\n========================================================");
 login:
 {
     printf("\n\nUserName: ");
@@ -71,8 +70,29 @@ void ticketBooking(int randomNum)
 }
 void status(int randomNum)
 {
-
-    // printf("Enter your Bus Number "); this function is note completed yet !! 
+    int matchUser;
+    int busNum;
+    printf("\nENTER YOUR RESERVATION NUMBER :  ");
+    scanf("%d", &matchUser);
+    if (matchUser == randomNum)
+    {
+      BUS:  printf("\n\nENTER YOUR BUS NUMBER : ");
+        scanf("%d", &busNum);
+        if (busNum==0)
+        {
+            printf("\nPLEASE ENTER CORRECT BUS NUMBER...\n");
+            goto BUS;
+        }
+        
+        DisplaySeat(busSeat[busNum]);
+    }
+    else
+    {
+        redColor();
+        printf("\nNOT MATCHED!!\n\n");
+        printf("\nPLEASE ENTER YOUR CORRECT RESERVATION NUMBER!!\n");
+        resetColor();
+    }
 }
 void busLists(int randomNum)
 {
@@ -98,6 +118,11 @@ void busLists(int randomNum)
     DisplaySeat(busSeat[choice]);
     printf("\n\nNO. OF SEATS YOU NEED TO BOOK : ");
     scanf("%d", &seats);
+    if (seats == 0)
+    {
+        return;
+    }
+
     int seatNumber;
     for (int i = 1; i <= seats; i++)
     {
@@ -135,11 +160,19 @@ aa:
         if (c == 'y' || c == 'Y')
         {
             printf("\n\n============================================\n\n");
-            printf("   ENTER THE BUS NUMBER: ");
+          bus:  printf("   ENTER THE BUS NUMBER: ");
             scanf("%d", &choice);
-
+            if (choice == 0 || choice >= 10)
+            {   printf("\n\tENTER CORRECT BUS NUMBER PLEASE...\n");
+                goto bus;
+            }
             printf("\nHOW MANY SEATS DO WANT TO CANCEL : ");
             scanf("%d", &seatCancel);
+            if (seatCancel == 0 )
+            {
+                return ;
+            }
+            
             for (int i = 0; i < seatCancel; i++)
             {
                 printf("   \nENTER THE SEAT NUMBER: ");
@@ -149,6 +182,7 @@ aa:
             }
             printf("\n\nYOUR RESERVATION HAS BEEN CANCEL !!\n\n");
             getch();
+            printf("\n");
             DisplaySeat(busSeat[choice]);
         }
 
@@ -171,18 +205,17 @@ int main()
     int randomNum = rand();
     int num, i;
     login();
-main:
-{
+
     do
     {
-        printf("\n\n========================================\n\n");
+        printf("\n\n=====================================================\n\n");
         printf("\t\tBUS RESERVATION\t\t");
-        printf("\n\n========================================\n");
+        printf("\n\n======================================================\n");
         printf("\n====================  MAIN MENU  =====================\n\n");
         printf("   [1] View Bus List And Book Tikects\n\n");
         printf("   [2] Book Tickets\n\n");
         printf("   [3] Cancel Booking\n\n");
-        printf("   [4] Bus Status Board\n\n");
+        printf("   [4] Bus Seats Status Board\n\n");
         printf("   [5] Exit\n");
         printf("\n=====================================================\n");
         printf("   ENTER YOUR CHOICE: ");
@@ -201,6 +234,11 @@ main:
         case 4:
             status(randomNum);
             break;
+        default : 
+         printf("\n \tENTER THE CORRECT OPTATION...\n \tPRESS ANY KEY TO CONTINUE...");
+         getch();
+         break;
+
         }
     } while (num != 5);
     printf("\n\n============================================\n\n");
@@ -209,5 +247,4 @@ main:
     printf("\n\n");
     getch();
     return 0;
-}
 }
