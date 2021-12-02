@@ -286,19 +286,19 @@ main:
     do
     {
         printf("\n\n====================================================================\n\n");
-        printf("\t\t\t\tBUS RESERVATION\t\t");
+        printf("\t\t\t\033[1;31mBUS RESERVATION\033[0m\t\t");
         printf("\n\n=====================================================================\n");
         printf("\n====================");
         redColor();
         printf("  MAIN MENU ");
         resetColor();
         printf("=====================\n\n");
-        printf("   [1] View Bus List \n\n");
-        printf("   [2] Book Tickets\n\n");
-        printf("   [3] Cancel Booking\n\n");
-        printf("   [4] Bus Status Board\n\n");
-        printf("   [5] Reservation Info\n\n");
-        printf("   [6] Exit\n");
+        printf("   \033[1;31m[1]\033[0m VIEW BUS LIST \n\n");
+        printf("   \033[1;31m[2]\033[0m BOOK TICKETS\n\n");
+        printf("   \033[1;31m[3]\033[0m CANCEL BOOKING\n\n");
+        printf("   \033[1;31m[4]\033[0m BUSES SEATS INFO\n\n");
+        printf("   \033[1;31m[5]\033[0m RESERVATION INFO\n\n");
+        printf("   \033[1;31m[6]\033[0m EXIT\n");
         printf("\n=====================================================\n");
         printf("\n   ENTER YOUR CHOICE: ");
         scanf("%d", &num);
@@ -308,7 +308,7 @@ main:
             busLists(); // for list of bus
             break;
         case 2:
-            busLists(randomNum); // for booking the tickets
+            busLists(); // for booking the tickets
 
             int CustId, choice, seats;
 
@@ -318,7 +318,7 @@ main:
             if (choice <= 0 || choice >= 9)
             {
                 redColor();
-                printf("\nENTER VALID BUS NUMBER\n");
+                printf("\nENTER VALID BUS NUMBER !! \n");
                 resetColor();
                 getch();
                 goto busChoice;
