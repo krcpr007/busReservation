@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 typedef struct BinarySearchTree BST;
+// if bst is empty then we have to handle the error 
 struct BinarySearchTree
 {
     int PassnNo; // busNo0SeatNo.
@@ -36,16 +37,17 @@ BST *reservationInfo(BST *r, int s) // find function
     BST *presentnode = r;
     if ((presentnode) != NULL)
     {
+        // --------------------
 
         if ((presentnode->PassnNo == s))
         {   redColor();
-            printf("\n------------------------------------------------------------------------------------\n");
-            printf("\n||              NAME: %s                                   ||\n", (presentnode->name));
-            printf("\n||              CUSTOMER ID: %d                             ||\n", presentnode->PassnNo);
-            printf("\n||              BUS NUMBER: %d                                 ||\n", (presentnode->PassnNo) / 1000);
-            printf("\n||              SEAT NUMBER: %d                                ||\n", (presentnode->PassnNo) % 100);
-            printf("\n------------------------------------------------------------------------------------\n");
+            printf("\n-----------------------------------------------------------------");
+            printf("\n||              NAME: %s                                    ||", (presentnode->name));
+            printf("\n||              CUSTOMER ID: %d                              ||", presentnode->PassnNo);
+            printf("\n||              BUS NUMBER: %d                                  ||", (presentnode->PassnNo) / 1000);
+            printf("\n||              SEAT NUMBER: %d                                 ||", (presentnode->PassnNo) % 100);
             printf("\n||              TICKET COST: Rs.%d                             ||", cost(presentnode));
+            printf("\n------------------------------------------------------------------");
             resetColor();
             return r;
         }
@@ -203,6 +205,7 @@ busInput:
     }
     printf("\n");
     DisplaySeat(busSeat[busNum]);
+    getch();
 }
 void busLists()
 {
@@ -278,7 +281,7 @@ int main()
 {
     srand(time(0));
     int randomNum = rand();
-    int num, i, custID;
+    int num, i, custID,reservationNo;
     BST *root1;
 //   login();
 main:
@@ -315,7 +318,7 @@ main:
         busChoice:
             printf("\n\nCHOOSE YOUR BUS  : ");
             scanf("%d", &choice);
-            if (choice <= 0 || choice >= 9)
+            if (choice <= 0 || choice > 9)
             {
                 redColor();
                 printf("\nENTER VALID BUS NUMBER !! \n");
@@ -370,10 +373,22 @@ main:
             status(randomNum);
             break;
         case 5:
+       takingReservationNo:     printf("\n   ENTER YOUR RESERVATION NUMBER :");
+            scanf("%d", &reservationNo);
 
+            if (randomNum==reservationNo)
+            {
             printf("\n   ENTER YOUR CUSTOMER ID :");
             scanf("%d", &custID);
             root1 = reservationInfo(root, custID);
+               
+            }
+            else{
+                redColor();
+                printf("\n INVALID RESERVATION NUMBER PLEASE ENTER CORRECT RESERVATION NUMBER !!\n");
+                resetColor();
+                goto takingReservationNo;
+            }
             break;
         }
     } while (num != 6);
