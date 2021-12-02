@@ -183,22 +183,22 @@ void status()
     printf("\nBus.No\tName\t\t\tDestinations  \t\tCharges  \t\tTime\n");
     resetColor();
     printf("-----------------------------------------------------------------------------------------");
-    printf("\n1\tGangaTravels         \tDharan to Kavre       \tRs.700   \t\t07:00   AM");
-    printf("\n2\tPhaphara Travels     \tKavre To Dharan       \tRs.750    \t\t01:30  PM");
-    printf("\n3\tShiv Ganga Travels   \tAllahabad To Gorakhpur\tRs.400    \t\t03:50  PM");
-    printf("\n4\tSuper Deluxe         \tPokhara To Benigha    \tRs.350    \t\t01:00  AM");
-    printf("\n5\tSai Baba Travels     \tMaitidevi To Janakpur \tRs.400    \t\t12:05  AM");
-    printf("\n6\tShine On Travels     \tMadhubani to Patna    \tRs.400    \t\t09:30  AM");
-    printf("\n7\tMayur Travels        \tPatna To Gaya         \tRs.350    \t\t11:00  PM");
-    printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.350    \t\t04:00  PM");
-    printf("\n9\tShatabdi Travels     \tKathmandu To Pokhara  \tRs.600    \t\t05:35  PM");
-    printf("\n10\tRajjo Travels       \tBegusarai To Patna    \tRs.700    \t\t08:15  AM");
+    printf("\n1\tGangaTravels         \tDharan to Kavre       \tRs.70   \t\t07:00  AM");
+    printf("\n2\tPhaphara Travels     \tKavre To Dharan       \tRs.55    \t\t01:30  PM");
+    printf("\n3\tShiv Ganga Travels   \tAllahabad To Gorakhpur\tRs.40    \t\t03:50  PM");
+    printf("\n4\tSuper Deluxe         \tPokhara To Benigha    \tRs.70    \t\t01:00  AM");
+    printf("\n5\tSai Baba Travels     \tMaitidevi To Janakpur \tRs.55    \t\t12:05  AM");
+    printf("\n6\tShine On Travels     \tMadhubani to Patna    \tRs.40    \t\t09:30  AM");
+    printf("\n7\tMayur Travels        \tPatna To Gaya         \tRs.70   \t\t11:00  PM");
+    printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.40    \t\t04:00  PM");
+    printf("\n9\tRajjo Travels       \tBegusarai To Patna     \tRs.55    \t\t08:15  AM");
 busInput:
     printf("\n\nENTER YOUR BUS NUMBER : ");
     scanf("%d", &busNum);
-    if (busNum == 0 || busNum >= 11)
-    {
-        printf("\nPLEASE ENTER CORRECT BUS NUMBER...\n");
+    if (busNum <= 0 || busNum >= 10 )
+    {   redColor();
+        printf("\n  PLEASE ENTER CORRECT BUS NUMBER !!\n");
+        resetColor();
         goto busInput;
     }
     printf("\n");
@@ -296,8 +296,8 @@ main:
         printf("   [1] View Bus List \n\n");
         printf("   [2] Book Tickets\n\n");
         printf("   [3] Cancel Booking\n\n");
-        printf("   [5] Reservation Info\n\n");
         printf("   [4] Bus Status Board\n\n");
+        printf("   [5] Reservation Info\n\n");
         printf("   [6] Exit\n");
         printf("\n=====================================================\n");
         printf("\n   ENTER YOUR CHOICE: ");
@@ -315,7 +315,7 @@ main:
         busChoice:
             printf("\n\nCHOOSE YOUR BUS  : ");
             scanf("%d", &choice);
-            if (choice == 0 || choice >= 10)
+            if (choice <= 0 || choice >= 9)
             {
                 redColor();
                 printf("\nENTER VALID BUS NUMBER\n");
@@ -328,7 +328,7 @@ main:
         busSeatChoice:
             printf("\n\nNO. OF SEATS YOU NEED TO BOOK : ");
             scanf("%d", &seats);
-            if (seats == 0)
+            if (seats <= 0)
             {
                 redColor();
                 printf("\nENTER VALID SEAT NUMBER!!\n");
