@@ -19,7 +19,7 @@ void status();                 // shows bus and seats status
 void busLists();               // shows buslist and do booking seat and return customer ID
 void DisplaySeat(int bus[33]); // Display the seats of buses
 void cancel(int x);
-BST *reservationInfo(BST *, int); // Display Reservation Info
+BST *reservationInfo(BST *, int, int *); // Display Reservation Info
 BST *insert(BST **r, int custID);
 
 int busSeat[33][9] = {0};
@@ -31,9 +31,9 @@ void resetColor() /// reset the old color of console
 {
     printf("\033[0m");
 }
-
-BST *reservationInfo(BST *r, int s) // find function
+BST *reservationInfo(BST *r, int s,int *custIDmatched) // find function
 {
+    
     BST *presentnode = r;
     if ((presentnode) != NULL)
     {
@@ -41,6 +41,7 @@ BST *reservationInfo(BST *r, int s) // find function
 
         if ((presentnode->PassnNo == s))
         {
+            *custIDmatched=1;
             redColor();
             printf("\n-----------------------------------------------------------------");
             printf("\n||              NAME: %s                                    ||", (presentnode->name));
@@ -54,13 +55,14 @@ BST *reservationInfo(BST *r, int s) // find function
         }
         else if (presentnode->PassnNo < s)
         {
-            reservationInfo((presentnode->left), s);
+            reservationInfo((presentnode->left), s, custIDmatched);
         }
         else if (presentnode->PassnNo > s)
         {
-            reservationInfo((presentnode->right), s);
+            reservationInfo((presentnode->right), s, custIDmatched);
         }
     }
+    
     return NULL;
 }
 BST *insert(BST **r, int custId)
@@ -407,8 +409,14 @@ main:
                 //     resetColor();
                 //     goto cust;
                 // }
-
-                root1 = reservationInfo(root, custID);
+                int custIDmatched=0;
+                root1 = reservationInfo(root, custID,&custIDmatched);
+                if(custIDmatched==0)
+                 {
+                     redColor();
+                     printf("\n   ENTER CORRECT CUSTOMER ID\n");
+                     resetColor();
+                 }
             }
             else
             {
