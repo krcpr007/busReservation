@@ -32,9 +32,9 @@ void resetColor() /// reset the old color of console
     printf("\033[0m");
 }
 
-BST *reservationInfo(BST *r, int s) // find function
+BST *reservationInfo(BST *root, int s) // find function
 {
-    BST *presentnode = r;
+    BST *presentnode = root;
     if ((presentnode) != NULL)
     {
         // --------------------
@@ -50,15 +50,15 @@ BST *reservationInfo(BST *r, int s) // find function
             printf("\n||              TICKET COST: Rs.%d                             ||", cost(presentnode));
             printf("\n------------------------------------------------------------------");
             resetColor();
-            return r;
+            return root;
         }
         else if (presentnode->PassnNo < s)
         {
-            reservationInfo((presentnode->left), s);
+            reservationInfo((presentnode->right), s);
         }
         else if (presentnode->PassnNo > s)
         {
-            reservationInfo((presentnode->right), s);
+            reservationInfo((presentnode->left), s);
         }
     }
     return NULL;
@@ -86,11 +86,11 @@ BST *insert(BST **r, int custId)
     {
         if ((*r)->PassnNo < custId)
         {
-            (*r)->left = insert(&((*r)->left), custId);
+            (*r)->right = insert(&((*r)->right), custId);
         }
         else if ((*r)->PassnNo > custId)
         {
-            (*r)->right = insert(&((*r)->right), custId);
+            (*r)->left = insert(&((*r)->left), custId);
         }
     }
     return *r;
@@ -156,10 +156,10 @@ login:
         printf("\nLOGED IN SUCCESFULLY...\n");
     }
 }
-int cost(BST *r)
+int cost(BST *root)
 {
     int cost, buscost;
-    buscost = (r->PassnNo) / 1000;
+    buscost = (root->PassnNo) / 1000;
     switch (buscost % 3)
     {
     case 1:
@@ -179,22 +179,7 @@ int cost(BST *r)
 void status()
 {
     int busNum;
-
-    printf("\n\n");
-    printf("-----------------------------------------------------------------------------------------");
-    redColor();
-    printf("\nBus.No\tName\t\t\tDestinations  \t\tCharges  \t\tTime\n");
-    resetColor();
-    printf("-----------------------------------------------------------------------------------------");
-    printf("\n1\tGangaTravels         \tDharan to Kavre       \tRs.70   \t\t07:00  AM");
-    printf("\n2\tPhaphara Travels     \tKavre To Dharan       \tRs.55    \t\t01:30  PM");
-    printf("\n3\tShiv Ganga Travels   \tAllahabad To Gorakhpur\tRs.40    \t\t03:50  PM");
-    printf("\n4\tSuper Deluxe         \tPokhara To Benigha    \tRs.70    \t\t01:00  AM");
-    printf("\n5\tSai Baba Travels     \tMaitidevi To Janakpur \tRs.55    \t\t12:05  AM");
-    printf("\n6\tShine On Travels     \tMadhubani to Patna    \tRs.40    \t\t09:30  AM");
-    printf("\n7\tMayur Travels        \tPatna To Gaya         \tRs.70   \t\t11:00  PM");
-    printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.40    \t\t04:00  PM");
-    printf("\n9\tRajjo Travels       \tBegusarai To Patna     \tRs.55    \t\t08:15  AM");
+    busLists();
 busInput:
     printf("\n\nENTER YOUR BUS NUMBER : ");
     scanf("%d", &busNum);
@@ -240,11 +225,11 @@ void cancel(int randomNum)
 
 aa:
 {
-    printf("\nENTER YOUR RESERVATION NUMBER : ");
+    printf("\n   ENTER YOUR RESERVATION NUMBER : ");
     scanf("%d", &reservationNo);
     if (reservationNo == randomNum)
     {
-        printf("\nRESERVATION NUMBER IS IT CORRECT ? %d \nENTER (Y/N) : ", reservationNo);
+        printf("\n   RESERVATION NUMBER IS IT CORRECT ? %d \nENTER (Y/N) : ", reservationNo);
         scanf("%s", &c);
         if (c == 'y' || c == 'Y')
         {
@@ -252,7 +237,7 @@ aa:
             printf("   ENTER THE BUS NUMBER: ");
             scanf("%d", &choice);
 
-            printf("\nHOW MANY SEATS DO WANT TO CANCEL : ");
+            printf("\n   HOW MANY SEATS DO WANT TO CANCEL : ");
             scanf("%d", &seatCancel);
             for (int i = 0; i < seatCancel; i++)
             {
@@ -261,19 +246,19 @@ aa:
 
                 busSeat[choice][seatNumber] = 0;
             }
-            printf("\n\nYOUR RESERVATION HAS BEEN CANCEL !!\n\n");
+            printf("\n\n   YOUR RESERVATION HAS BEEN CANCEL !!\n\n");
             getch();
             DisplaySeat(busSeat[choice]);
         }
 
         else if (c == 'n' || c == 'N')
         {
-            printf("\nYOUR RESERVATION CANCELATION HAS BEEN DENIED\n");
+            printf("\n   YOUR RESERVATION CANCELATION HAS BEEN DENIED\n");
         }
     }
     else
     {
-        printf("\nNOT FOUND!! ENTER THE CORRECT RESERVATION NUMBER\n");
+        printf("\n   NOT FOUND!! ENTER THE CORRECT RESERVATION NUMBER\n");
         goto aa;
     }
 }
