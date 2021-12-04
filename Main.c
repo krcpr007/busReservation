@@ -372,6 +372,7 @@ main:
       printf("PRESS 'ENTER' KEY TO CONTINUE ");  
       getch();
       break;
+      
     case 3:
       cancel(randomNum);
       break;
