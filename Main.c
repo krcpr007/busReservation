@@ -12,7 +12,6 @@ struct BinarySearchTree
   struct BinarySearchTree *left;
   struct BinarySearchTree *right;
 };
-char busName[10][30] = {"GangaTravels ", "Phaphara Travels ", "Shiv Ganga Travels", "Super Deluxe", "Sai Baba Travels", "Shine On Travels", "Mayur Travels", "Shree Travels", "Rajjo Travels"};
 BST *root = NULL;
 int cost(BST *r);              // calculates costs
 void status();                 // shows bus and seats status
@@ -33,18 +32,18 @@ void resetColor() /// reset the old color of console
 }
 BST *reservationInfo(BST *r, int s, int *custIDmatched) // find function
 {
-
+  if(r==NULL)return NULL;
   BST *presentnode = r;
-  if ((presentnode) != NULL)
+  while (presentnode)
   {
     // --------------------
 
-    if ((presentnode->PassnNo == s))
+    if (presentnode->PassnNo == s)
     {
       *custIDmatched = 1;
       redColor();
       printf("\n-----------------------------------------------------------------");
-      printf("\n||              NAME: %s                                    ||", (presentnode->name));
+      printf("\n||              NAME: %10s                               ||", (presentnode->name));
       printf("\n||              CUSTOMER ID: %d                              ||", presentnode->PassnNo);
       printf("\n||              BUS NUMBER: %d                                  ||", (presentnode->PassnNo) / 1000);
       printf("\n||              SEAT NUMBER: %d                                 ||", (presentnode->PassnNo) % 100);
@@ -53,14 +52,8 @@ BST *reservationInfo(BST *r, int s, int *custIDmatched) // find function
       resetColor();
       return r;
     }
-    else if (presentnode->PassnNo < s)
-    {
-      reservationInfo((presentnode->left), s, custIDmatched);
-    }
-    else if (presentnode->PassnNo > s)
-    {
-      reservationInfo((presentnode->right), s, custIDmatched);
-    }
+    else if (presentnode->PassnNo > s) presentnode=presentnode->left;
+    else presentnode=presentnode->right;
   }
 
   return NULL;
@@ -86,11 +79,11 @@ BST *insert(BST **r, int custId)
   }
   else
   {
-    if ((*r)->PassnNo < custId)
+    if ((*r)->PassnNo > custId)
     {
       (*r)->left = insert(&((*r)->left), custId);
     }
-    else if ((*r)->PassnNo > custId)
+    else if ((*r)->PassnNo < custId)
     {
       (*r)->right = insert(&((*r)->right), custId);
     }
