@@ -270,7 +270,7 @@ int main()
   int randomNum = rand();
   int num, i, custID, reservationNo;
   BST *root1;
-//   login();
+  login();
 main:
 {
   do
@@ -375,7 +375,6 @@ main:
       status(randomNum);
       break;
     case 5:
-      printf("%d", randomNum);
     takingReservationNo:
       printf("\n   ENTER YOUR RESERVATION NUMBER :");
       scanf("%d", &reservationNo);
