@@ -50,6 +50,7 @@ BST *reservationInfo(BST *r, int s, int *custIDmatched) // find function
       printf("\n||              TICKET COST: Rs.%d                             ||", cost(presentnode));
       printf("\n-----------------------------------------------------------------");
       resetColor();
+      getch();
       return r;
     }
     else if (presentnode->PassnNo > s) presentnode=presentnode->left;
@@ -206,6 +207,7 @@ void busLists()
   printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.40    \t\t04:00  PM");
   printf("\n9\tRajjo Travels       \tBegusarai To Patna     \tRs.55    \t\t08:15  AM");
   printf("\n");
+  printf("PRESS 'ENTER' KEY TO CONTINUE ");
   getch();
 }
 void cancel(int randomNum)
@@ -240,6 +242,7 @@ aa:
         busSeat[choice][seatNumber] = 0;
       }
       printf("\n\nYOUR RESERVATION HAS BEEN CANCEL !!\n\n");
+      printf("PRESS 'ENTER' KEY TO CONTINUE ");
       getch();
       DisplaySeat(busSeat[choice]);
     }
@@ -359,8 +362,10 @@ main:
       printf("%d\n", randomNum);
       printf("\nPLEASE NOTE DOWN YOUR RESERVATION NUMBER FOR CANCEL BOOKING TICKETS!!\n");
       resetColor();
+      printf("PRESS 'ENTER' KEY TO CONTINUE ");  
       getch();
       break;
+      
     case 3:
       cancel(randomNum);
       break;
