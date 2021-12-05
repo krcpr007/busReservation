@@ -21,7 +21,7 @@ void cancel(int x);
 BST *reservationInfo(BST *, int, int *); // Display Reservation Info
 BST *insert(BST **r, int custID);
 
-int busSeat[33][9] = {0};
+int busSeat[32][9] = {0};
 void redColor() /// Print the message in redcolor
 {
   printf("\033[1;31m");
@@ -32,7 +32,8 @@ void resetColor() /// reset the old color of console
 }
 BST *reservationInfo(BST *r, int s, int *custIDmatched) // find function
 {
-  if(r==NULL)return NULL;
+  if (r == NULL)
+    return NULL;
   BST *presentnode = r;
   while (presentnode)
   {
@@ -53,8 +54,10 @@ BST *reservationInfo(BST *r, int s, int *custIDmatched) // find function
       getch();
       return r;
     }
-    else if (presentnode->PassnNo > s) presentnode=presentnode->left;
-    else presentnode=presentnode->right;
+    else if (presentnode->PassnNo > s)
+      presentnode = presentnode->left;
+    else
+      presentnode = presentnode->right;
   }
 
   return NULL;
@@ -204,10 +207,10 @@ void busLists()
   printf("\n5\tSai Baba Travels     \tMaitidevi To Janakpur \tRs.55    \t\t12:05  AM");
   printf("\n6\tShine On Travels     \tMadhubani to Patna    \tRs.40    \t\t09:30  AM");
   printf("\n7\tMayur Travels        \tPatna To Gaya         \tRs.70   \t\t11:00  PM");
-  printf("\n8\tShree Travels        \tGaya To Chhapra       \tRs.40    \t\t04:00  PM");
-  printf("\n9\tRajjo Travels       \tBegusarai To Patna     \tRs.55    \t\t08:15  AM");
+  printf("\n8\tRajjo Travels       \tBegusarai To Patna     \tRs.55    \t\t08:15  AM");
+  printf("\n9\tShree Travels        \tGaya To Chhapra       \tRs.40    \t\t04:00  PM");
   printf("\n");
-  printf("PRESS 'ENTER' KEY TO CONTINUE ");
+  printf("\n   PRESS 'ENTER' KEY TO CONTINUE ");
   getch();
 }
 void cancel(int randomNum)
@@ -362,10 +365,10 @@ main:
       printf("%d\n", randomNum);
       printf("\nPLEASE NOTE DOWN YOUR RESERVATION NUMBER FOR CANCEL BOOKING TICKETS!!\n");
       resetColor();
-      printf("PRESS 'ENTER' KEY TO CONTINUE ");  
+      printf("PRESS 'ENTER' KEY TO CONTINUE ");
       getch();
       break;
-      
+
     case 3:
       cancel(randomNum);
       break;
@@ -400,6 +403,11 @@ main:
         goto takingReservationNo;
       }
       break;
+    default:
+      redColor();
+      printf("\n\n   INVALID INPUT CHOOSE CORRECT OPTION\n");
+      resetColor();
+      break; 
     }
   } while (num != 6);
   printf("\n\n=====================================================================\n\n");
