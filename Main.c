@@ -17,9 +17,9 @@ int cost(BST *r);              // calculates costs
 void status();                 // shows bus and seats status
 void busLists();               // shows buslist and do booking seat and return customer ID
 void DisplaySeat(int bus[33]); // Display the seats of buses
-void cancel(int x);
+void cancel(int x);            //cancel the booking 
 BST *reservationInfo(BST *, int, int *); // Display Reservation Info
-BST *insert(BST **r, int custID);
+BST *insert(BST **r, int custID); // inserting a node 
 
 int busSeat[32][9] = {0};
 void redColor() /// Print the message in redcolor
@@ -235,7 +235,7 @@ aa:
       printf("   ENTER THE BUS NUMBER: ");
       scanf("%d", &choice);
 
-      printf("\nHOW MANY SEATS DO WANT TO CANCEL : ");
+      printf("\n HOW MANY SEATS DO WANT TO CANCEL : ");
       scanf("%d", &seatCancel);
       for (int i = 0; i < seatCancel; i++)
       {
@@ -245,7 +245,7 @@ aa:
         busSeat[choice][seatNumber] = 0;
       }
       printf("\n\nYOUR RESERVATION HAS BEEN CANCEL !!\n\n");
-      printf("PRESS 'ENTER' KEY TO CONTINUE ");
+      printf("\n  PRESS 'ENTER' KEY TO CONTINUE \n");
       getch();
       DisplaySeat(busSeat[choice]);
     }
